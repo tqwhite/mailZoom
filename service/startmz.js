@@ -67,6 +67,20 @@ var config={port:'5020'};
 
 //router.use(function(req, res, next) {});
 
+//STATIC PAGE DISPATCH =======================================================
+
+var modulePath=qtools.employerFilePath(module);
+	var staticPageDispatch = require('staticpagedispatch');
+	staticPageDispatch = new staticPageDispatch({
+		router: router,
+		filePathList: [modulePath + '/webPages'],
+		'default':'a_main',
+		systemParameters:{
+			mzBaseUrl:process.env.mzBaseUrl
+		}
+	});
+	
+	
 //START SERVER ROUTING FUNCTION =======================================================
 
 router.get('', function(req, res, next) {
