@@ -48,6 +48,14 @@ var dummyDataSource=function(){
 
 //INITIALIZATION ====================================
 
+
+if (!process.env.mzPort){
+	throw ("there must be an environment variable: mzPort to set the service port for MailZoom");
+}
+if (!process.env.mzBaseUrl){
+	throw ("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
+}
+
 //SET UP SERVER =======================================================
 
 var router = express.Router();
