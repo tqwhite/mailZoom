@@ -70,7 +70,7 @@ var config={port:'5020'};
 //STATIC PAGE DISPATCH =======================================================
 
 var modulePath=qtools.employerFilePath(module);
-	var staticPageDispatch = require('staticpagedispatch');
+	var staticPageDispatch = require('staticPageDispatch');
 	staticPageDispatch = new staticPageDispatch({
 		router: router,
 		filePathList: [modulePath + '/webPages'],
