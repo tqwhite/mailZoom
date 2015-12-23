@@ -78,7 +78,7 @@ var modulePath=qtools.employerFilePath(module);
 	staticPageDispatch = new staticPageDispatch({
 		router: router,
 		filePathList: [modulePath + '/webPages'],
-		'default':'a_main',
+		//'default':'a_main.html',
 		systemParameters:{
 			mzBaseUrl:process.env.mzBaseUrl,
 			status:status
