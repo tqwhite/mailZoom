@@ -50,9 +50,11 @@ var dummyDataSource=function(){
 
 
 if (!process.env.mzPort){
+	console.log("there must be an environment variable: mzPort to set the service port for MailZoom");
 	throw ("there must be an environment variable: mzPort to set the service port for MailZoom");
 }
 if (!process.env.mzBaseUrl){
+	console.log("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
 	throw ("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
 }
 
