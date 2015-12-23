@@ -8,8 +8,7 @@
 	
 	<title>Template Page Title</title>
 	
-	<script type='text/javascript' src='http://<!mzBaseUrl!>/jquery/jquery-2.1.4.min.js'></script>
-	
+	<script type='text/javascript' src='http://code.jquery.com/jquery-2.1.4.js'></script>
 	<!--link rel='stylesheet' type='text/css' href='css/main.css' /-->
 	
 	<style type='text/css'><!--
@@ -17,10 +16,6 @@
 		body {
 			color:#4B92D1;
 			font-family:sans-serif;
-			background:white;
-		}
-		#background{
-		position:absolute;top:0px;left:0px;height:100vh;width:100vw;;
 		}
 		
 	--></style>
@@ -28,8 +23,8 @@
 </head>
 <body>
 
-	<img id='background' src='http://<!mzBaseUrl!>/zoom_47137344.png'>
-
+	Welcome to the front page of Mail Zoom
+	
 </body>
 
 <script type='text/javascript'>
@@ -37,6 +32,22 @@
 	$(document).ready(function(){
 
 		$('body').append("<p>Thanks for visiting!");
+	
+			$.ajax({
+				method: "GET",
+				url: "http://mailzoom.local:5020",
+				data: {},
+				headers:{authorization:"<!userId!> <!authToken!>"}
+			})
+			.done(function(msg) {
+			$('body').append("<div style='color:green;'>Mail Zoom Server is running!</div>");
+		})
+			.fail(function(data, textStatus) {
+				var errorString = "Server Error: " + data.status + " - " + data.statusText + " (" + data.responseText + ")";
+
+			$('body').append("<div style='color:red;'>Mail Zoom Server failed!</div>")
+			.append("<div style='color:black;'>"+errorString+"</div>");
+			});
 	
 	
 	});

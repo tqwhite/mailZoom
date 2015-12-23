@@ -1,0 +1,62 @@
+<?/*php require_once($_SERVER['DOCUMENT_ROOT'].'/tools/mailNotificationInclude.php');*/?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<META HTTP-EQUIV='Content-Type' CONTENT='text/html; charset=UTF-8'>
+	
+	<!-- META http-equiv="refresh" content="5;URL=http://somewhere.com" -->
+	
+	<title>Mail Zoom Server Status</title>
+	
+	<script type='text/javascript' src='http://<!mzBaseUrl!>/jquery/jquery-2.1.4.min.js'></script>
+	
+	<!--link rel='stylesheet' type='text/css' href='css/main.css' /-->
+	
+	<style type='text/css'><!--
+	
+		body {
+			color:#4B92D1;
+			font-family:sans-serif;
+			background:white;
+		}
+		#background{
+		position:absolute;top:0px;left:0px;height:100vh;width:100vw;;
+		}
+		.centerContents{
+		font-size:18pt;
+	display:-webkit-flex;
+	display:flex;
+	-webkit-justify-content:center;
+	justify-content:center;
+	-webkit-align-items:center;
+	align-items:center;
+	flex-direction:row;
+	-webkit-flex-direction: row;
+	vertical-align:middle;
+	height:100vh;
+	text-align:center;
+}
+	--></style>
+	
+</head>
+<body>
+
+	<!--img id='background' src='http://<!mzBaseUrl!>/zoom_47137344.png'-->
+	<div class='centerContents'>
+	
+	</div>
+
+</body>
+
+<script type='text/javascript'>
+	/* <![CDATA[ */
+	$(document).ready(function(){
+
+		$('.centerContents').append("Someday this will have test and diagnostic functionality.");
+	
+	
+	});
+	/* ]]> */
+</script>
+
+</html>

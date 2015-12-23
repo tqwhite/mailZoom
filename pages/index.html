@@ -23,7 +23,7 @@
 </head>
 <body>
 
-	Hello Pages
+	Welcome to the front page of Mail Zoom
 	
 </body>
 
@@ -32,6 +32,22 @@
 	$(document).ready(function(){
 
 		$('body').append("<p>Thanks for visiting!");
+	
+			$.ajax({
+				method: "GET",
+				url: "http://mailzoom.local:5020",
+				data: {},
+				headers:{authorization:"<!userId!> <!authToken!>"}
+			})
+			.done(function(msg) {
+			$('body').append("<div style='color:green;'>Mail Zoom Server is running!</div>");
+		})
+			.fail(function(data, textStatus) {
+				var errorString = "Server Error: " + data.status + " - " + data.statusText + " (" + data.responseText + ")";
+
+			$('body').append("<div style='color:red;'>Mail Zoom Server failed!</div>")
+			.append("<div style='color:black;'>"+errorString+"</div>");
+			});
 	
 	
 	});

@@ -47,6 +47,7 @@ var dummyDataSource=function(){
 //METHODS AND PROPERTIES ====================================
 
 //INITIALIZATION ====================================
+var status={transactionCount:0, otherData:'hello'};
 
 
 if (!process.env.mzPort){
@@ -60,15 +61,16 @@ if (!process.env.mzBaseUrl){
 
 //SET UP SERVER =======================================================
 
+app.use(function(req, res, next) {status.transactionCount++;
+next();
+});
 var router = express.Router();
 app.use('/', router);
 
-var config={port:'5020'};
 
 //START SERVER AUTHENTICATION =======================================================
 
 //router.use(function(req, res, next) {});
-
 //STATIC PAGE DISPATCH =======================================================
 
 var modulePath=qtools.employerFilePath(module);
@@ -78,7 +80,8 @@ var modulePath=qtools.employerFilePath(module);
 		filePathList: [modulePath + '/webPages'],
 		'default':'a_main',
 		systemParameters:{
-			mzBaseUrl:process.env.mzBaseUrl
+			mzBaseUrl:process.env.mzBaseUrl,
+			status:status
 		}
 	});
 	
@@ -131,9 +134,9 @@ router.post('/ping', function(req, res, next) {
 
 //START SERVER =======================================================
 
-app.listen(config.port);
+app.listen(process.env.mzPort);
 
-qtools.message('Magic happens on port ' + config.port);
+qtools.message('Magic happens on port ' + process.env.mzPort+' ');
 
 	return this;
 };
