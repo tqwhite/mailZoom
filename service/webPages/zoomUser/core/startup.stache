@@ -1,0 +1,21 @@
+<div id='header'>Mail Zoom</div>
+<div id='workingContainer'>
+	{{#eq page "register"}}
+	  <mz-register></mz-register>
+	{{/eq}}
+	{{#eq page "login"}}
+	  <mz-login></mz-login>
+	{{/eq}}
+	{{#eq page "confirm"}}
+	  <mz-confirm></mz-confirm>
+	{{/eq}}
+	{{#eq page "forgot"}}
+	  <mz-forgot></mz-forgot>
+	{{/eq}}
+	{{#eq page "reset"}}
+	  <mz-reset></mz-reset>
+	{{/eq}}
+	{{#eq page "zoom"}}
+	  <mz-zoom></mz-zoom>
+	{{/eq}}
+	</div>

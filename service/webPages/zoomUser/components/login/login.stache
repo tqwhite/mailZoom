@@ -1,0 +1,19 @@
+<div class='formBox'>
+{{message}}
+
+
+
+<div style='margin:10px;' >
+Remember Me <input type='checkbox' value='remember' can-click='rememberMe'>
+{{#if wantRemember}}
+<div style='display:inline-block;'>setting cookie</div>
+{{/if}}
+</div>
+
+<div class='buttonBox'>
+	<div class='simpleButton' style='font-size:80%;font-weight:normal;' can-click='goToRegister'>Register Instead</div>
+	<div class='simpleButton' style='font-size:80%;font-weight:normal;' can-click='goToRegister'>Forgot Password</div>
+	<div class='simpleButton' style='padding-right:3vw;padding-left:3vw;' can-click='submitLogin'>Submit</div>
+</div>
+
+</div>

@@ -1,0 +1,104 @@
+body{
+background:#99eeff;
+}
+#header{
+width:100vw;border-bottom:1pt solid #ddaa88;
+padding:2vh 10vw;
+font-size:18pt;
+}
+#workingContainer{
+height:95vh;100vw;padding:6vh 3vw;
+
+
+}
+
+.formBox{
+background:rgba(255,255,255, .5);
+width:40vw;
+}
+
+mz-register, 
+mz-login, 
+mz-confirm, 
+mz-forgot, 
+mz-reset,  
+mz-zoom{
+	display:-webkit-flex;
+	display:flex;
+	-webkit-justify-content:center;
+	justify-content:center;
+	-webkit-align-items:center;
+	align-items:center;
+	flex-direction:row;
+	-webkit-flex-direction: row;
+}
+
+.simpleButton{
+	color:#778877;
+	background:rgba(255,255,255, .5);
+  	font-weight:bold;
+	cursor:pointer;
+  	
+	text-align:center;
+	
+	padding:.5vw;
+	
+	margin:1vw;
+	
+	border-top-width:2pt;
+	border-right-width:2pt;
+	border-bottom-width:2pt;
+	border-left-width:2pt;
+	
+	border-top-color:#444;
+	border-right-color:#444;
+	border-bottom-color:#444;
+	border-left-color:#444;
+	
+	border-top-style:solid;
+	border-right-style:solid;
+	border-bottom-style:solid;
+	border-left-style:solid;
+	
+	
+	border-radius: 6px; /* CSS3 */
+	/*box-shadow:2px 3px 15px 12px rgba(0, 0, 0, .5);  CSS3 */
+	box-shadow:none; /* CSS3 */
+	
+	display:inline-block;
+
+}
+
+
+.simpleButton:hover{
+	background:rgba(111,111,111, .5);
+	color:#fff;
+	border-radius: 10px; /* CSS3 */
+}
+
+.buttonBox{
+	display:-webkit-flex;
+	display:flex;
+	-webkit-justify-content:center;
+	justify-content:center;
+	-webkit-align-items:center;
+	align-items:center;
+	flex-direction:row;
+	-webkit-flex-direction: row;
+
+}
+
+
+/*
+dull brown: #ccaa99
+dull blue: #bbddee
+dull middle: #ddddee
+dull gray: #aaaaaa
+dull green: #778877 dull
+
+brown: #ddaa88
+blue: #99eeff
+lt green: #cceeee
+tan: #bbbb99
+dk green: #778877
+*/

@@ -1,0 +1,11 @@
+
+<div class='formBox'>
+{{message}}
+
+
+<div class='buttonBox'>
+	<div class='simpleButton' style='font-size:80%;font-weight:normal;' can-click='goToLogin'>Login Instead</div>
+	<div class='simpleButton' style='padding-right:3vw;padding-left:3vw;' can-click='submitLogin'>Submit</div>
+</div>
+
+</div>

@@ -1,0 +1,51 @@
+{{#if isVisible}}
+
+
+<div id='{{modalContainerId}}' can-click='cancel' class=' centerContents' style='position:absolute;top:0px;left:0px;width:100vw;height:100vh;background:rgba(134, 192, 144, .5);'>
+
+<div class='contactContainer shadowBorder' style='background:white;display: table;' can-click='controlPropagation'>
+<form  data-abide>
+
+{{#if isAcceptingInput}}
+{{{entryForm}}}
+<div class='centerContents' style='height:10vh;width:100%;'>
+<a href="#" class="button radius medium" can-click='save'>Submit</a>
+<a href="#" class="button radius small" can-click='cancel'>Cancel</a>
+</div>
+{{/if}}
+
+
+{{#if isSending}}
+<div style='padding:5vw;'>
+<img src='/js/fidgets/controls/contactForm/images/ajax-loader.gif' style='width:10vw;'>
+</div>
+{{/if}}
+
+
+{{#if isSuccessFinish}}
+<div class='centerContents'  style='height:50vh;width:50vw;'>
+<div class='centerContents'  style='font-size:250%;background:rgb(59, 182, 34);width:50vw;height:20vh;text-align:center;color:white;'>
+Message Sent
+</div>
+</div>
+{{/if}}
+
+
+
+
+{{#if isErrorFinish}}
+<div class='centerContents'  style='height:50vh;width:50vw;'>
+<div class='centerContents'  style='font-size:200%;background:rgb(215, 57, 84);width:50vw;height:20vh;text-align:center;color:white;'>
+Something bad happened:<br/>{{#each errorList}}{{message}}<br/>{{/each}}
+</div>
+</div>
+{{/if}}
+
+</form>
+</div>
+
+
+
+</div>
+
+{{/if}}
