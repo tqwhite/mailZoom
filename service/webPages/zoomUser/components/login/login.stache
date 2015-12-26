@@ -1,7 +1,7 @@
 <div class='formBox'>
-{{message}}
+{{title}}
 
-
+{{authUser.userName}}
 
 <div style='margin:10px;' >
 Remember Me <input type='checkbox' value='remember' can-click='rememberMe'>

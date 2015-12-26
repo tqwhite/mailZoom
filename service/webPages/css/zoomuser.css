@@ -43,17 +43,17 @@ mz-zoom{
 	
 	padding:.5vw;
 	
-	margin:1vw;
+	margin:.6vh 1vw;
 	
 	border-top-width:2pt;
 	border-right-width:2pt;
 	border-bottom-width:2pt;
 	border-left-width:2pt;
 	
-	border-top-color:#444;
-	border-right-color:#444;
-	border-bottom-color:#444;
-	border-left-color:#444;
+	border-top-color:#778877;
+	border-right-color:#778877;
+	border-bottom-color:#778877;
+	border-left-color:#778877;
 	
 	border-top-style:solid;
 	border-right-style:solid;

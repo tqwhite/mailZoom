@@ -8,6 +8,7 @@ var qtools = require('qtools'),
 var express = require('express');
 var app = express();
 
+
 //START OF moduleFunction() ============================================================
 
 var moduleFunction = function(args) {
@@ -59,6 +60,8 @@ if (!process.env.mzBaseUrl){
 	throw ("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
 }
 
+
+
 //SET UP SERVER =======================================================
 
 app.use(function(req, res, next) {status.transactionCount++;
@@ -67,6 +70,11 @@ next();
 var router = express.Router();
 app.use('/', router);
 
+var authenticate=require('authenticate');
+authenticate=new authenticate({
+app:app,
+router:router
+});
 
 //START SERVER AUTHENTICATION =======================================================
 

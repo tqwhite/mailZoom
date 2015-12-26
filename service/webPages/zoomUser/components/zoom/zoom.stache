@@ -1,6 +1,7 @@
 <div class='formBox'>
 {{message}}
 
+{{authUser.userName}}
 
 <div class='buttonBox'>
 	<div class='simpleButton' style='font-size:80%;font-weight:normal;' can-click='goToLogin'>Logout</div>
