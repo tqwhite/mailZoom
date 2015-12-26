@@ -1,6 +1,12 @@
 
 var MailZoom = can.Map.extend({});
-var MailZoom = new MailZoom();
+var MailZoom = new MailZoom({
+	define: {
+		authUser: {
+			serialize: false //THIS IS SUPPOSED TO SUPRESS THIS IN THE HASH!!		
+		}
+	}
+});
 MailZoom.models = {};
 
 $(function() {
@@ -35,3 +41,4 @@ $(function() {
 	MailZoom.attr('page', 'login');
 
 });
+

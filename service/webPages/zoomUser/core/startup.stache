@@ -1,4 +1,12 @@
-<div id='header'>Mail Zoom</div>
+<div id='header' class='centerHorizontal'>
+<div>Mail Zoom</div>
+
+<div>{{authUser.fullName}}</div>
+
+</div>
+
+
+
 <div id='workingContainer'>
 	{{#eq page "register"}}
 	  <mz-register></mz-register>

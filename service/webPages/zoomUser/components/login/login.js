@@ -4,7 +4,7 @@ can.Component.extend({
 	viewModel: {
 		title: 'Log into Mail Zoom',
 		wantRemember: false, //init from some model that looks at cookie
-
+		proposedUser: {},
 		goToRegister: function() {
 			can.route.attr('page', 'register');
 		},
@@ -13,12 +13,19 @@ can.Component.extend({
 		},
 		submitLogin: function(ev, el) {
 
-			MailZoom.models.user.authenticate({}, function(user) {
+			MailZoom.models.user.authenticate({
+				userName: this.proposedUser.userName,
+				password: this.proposedUser.password
+			}, function(user) {
 				can.route.attr('page', 'zoom');
-			}.bind(this))
+			}.bind(this), function(user) {
+				this.attr('title', "Login rejected by Server");
+			}.bind(this)
+			)
 
 		}
 	}
 });
+
 
 

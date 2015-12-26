@@ -4,10 +4,8 @@ var qtools = require('qtools'),
 	events = require('events'),
 	util = require('util');
 
-
 var express = require('express');
 var app = express();
-
 
 //START OF moduleFunction() ============================================================
 
@@ -39,112 +37,119 @@ var moduleFunction = function(args) {
 			});
 		};
 
-//LOCAL FUNCTIONS ====================================
+	//LOCAL FUNCTIONS ====================================
 
-var dummyDataSource=function(){
-	return {information:"placeholder"}
-}
+	var dummyDataSource = function() {
+		return {
+			information: "placeholder"
+		}
+	}
 
-//METHODS AND PROPERTIES ====================================
+	//METHODS AND PROPERTIES ====================================
 
-//INITIALIZATION ====================================
-var status={transactionCount:0, otherData:'hello'};
+	//INITIALIZATION ====================================
+	var status = {
+		transactionCount: 0,
+		otherData: 'hello'
+	};
 
+	if (!process.env.mzPort) {
+		console.log("there must be an environment variable: mzPort to set the service port for MailZoom");
+		throw ("there must be an environment variable: mzPort to set the service port for MailZoom");
+	}
+	if (!process.env.mzBaseUrl) {
+		console.log("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
+		throw ("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
+	}
 
-if (!process.env.mzPort){
-	console.log("there must be an environment variable: mzPort to set the service port for MailZoom");
-	throw ("there must be an environment variable: mzPort to set the service port for MailZoom");
-}
-if (!process.env.mzBaseUrl){
-	console.log("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
-	throw ("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
-}
+	//SET UP SERVER =======================================================
 
+	var bodyParser = require('body-parser');
+	app.use(bodyParser.urlencoded({ extended: false }))
+	app.use(bodyParser.json())
 
+	app.use(function(req, res, next) {
+		status.transactionCount++;
+		next();
+	});
 
-//SET UP SERVER =======================================================
+	var router = express.Router();
+	app.use('/', router);
 
-app.use(function(req, res, next) {status.transactionCount++;
-next();
-});
-var router = express.Router();
-app.use('/', router);
+	var authenticate = require('authenticate');
+	authenticate = new authenticate({
+		app: app,
+		router: router
+	});
 
-var authenticate=require('authenticate');
-authenticate=new authenticate({
-app:app,
-router:router
-});
+	//START SERVER AUTHENTICATION =======================================================
 
-//START SERVER AUTHENTICATION =======================================================
+	//router.use(function(req, res, next) {});
+	//STATIC PAGE DISPATCH =======================================================
 
-//router.use(function(req, res, next) {});
-//STATIC PAGE DISPATCH =======================================================
-
-var modulePath=qtools.employerFilePath(module);
+	var modulePath = qtools.employerFilePath(module);
 	var staticPageDispatch = require('staticPageDispatch');
 	staticPageDispatch = new staticPageDispatch({
 		router: router,
 		filePathList: [modulePath + '/webPages'],
 		//'default':'a_main.html',
-		systemParameters:{
-			mzBaseUrl:process.env.mzBaseUrl,
-			status:status
+		systemParameters: {
+			mzBaseUrl: process.env.mzBaseUrl,
+			status: status
 		}
 	});
-	
-	
-//START SERVER ROUTING FUNCTION =======================================================
 
-router.get('', function(req, res, next) {
-	console.log('access from empty path/get');
-	
-	res.set({
-	'content-type': 'application/json;charset=ISO-8859-1',
-	 messageid: qtools.newGuid(),
-	 messagetype: 'RESPONSE',
-	 navigationcount: '100',
-	 navigationpage: '1',
-	 navigationpagesize: '10',
-	 responsesource: 'PROVIDER',
-	 connection: 'Close'
+	//START SERVER ROUTING FUNCTION =======================================================
+
+	router.get('', function(req, res, next) {
+		console.log('access from empty path/get');
+
+		res.set({
+			'content-type': 'application/json;charset=ISO-8859-1',
+			messageid: qtools.newGuid(),
+			messagetype: 'RESPONSE',
+			navigationcount: '100',
+			navigationpage: '1',
+			navigationpagesize: '10',
+			responsesource: 'PROVIDER',
+			connection: 'Close'
+		});
+		res.json({
+			status: 'hello from {empty path}/get',
+			body: req.body,
+			query: req.query,
+			data: dummyDataSource('empty path')
+		});
 	});
-	res.json({
-		status: 'hello from {empty path}/get',
-		body: req.body,
-		query: req.query,
-		data:dummyDataSource('empty path')
+	//START SERVER ROUTE GROUP (ping) =======================================================
+
+	router.get('/ping', function(req, res, next) {
+		console.log('/ping/get');
+
+		res.json({
+			status: 'hello from ping/get',
+			body: req.body,
+			query: req.query,
+			data: dummyDataSource('get')
+		});
 	});
-});
-//START SERVER ROUTE GROUP (ping) =======================================================
 
-router.get('/ping', function(req, res, next) {
-	console.log('/ping/get');
-	
-	res.json({
-		status: 'hello from ping/get',
-		body: req.body,
-		query: req.query,
-		data:dummyDataSource('get')
+	router.post('/ping', function(req, res, next) {
+		console.log('/ping/post');
+
+		res.json({
+			status: 'hello from ping/post',
+			body: req.body,
+			query: req.query,
+			data: dummyDataSource('post')
+		});
 	});
-});
-     
-router.post('/ping', function(req, res, next) {
-	console.log('/ping/post');
-	
-	res.json({
-		status: 'hello from ping/post',
-		body: req.body,
-		query: req.query,
-		data:dummyDataSource('post')
-	});
-});
 
-//START SERVER =======================================================
+	//START SERVER =======================================================
 
-app.listen(process.env.mzPort);
+	app.listen(process.env.mzPort);
 
-qtools.message('Magic happens on port ' + process.env.mzPort+' ');
+	qtools.message('Magic happens on port ' + process.env.mzPort + ' ');
 
 	return this;
 };

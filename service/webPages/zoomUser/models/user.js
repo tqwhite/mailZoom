@@ -5,12 +5,16 @@
 var UserModel = can.Model.extend({
 	findOne: 'POST /login'
 }, {
-	authenticate: function(inData, callback) {
+	authenticate: function(inData, success, error) {
 		UserModel.findOne(inData, function(user) {
 			MailZoom.attr('authUser', user);
-			callback(user);
-		}.bind(this));
+			success(user);
+		}.bind(this), function() {
+			error();
+		});
 	}
 });
 
 MailZoom.models.user = new UserModel();
+
+

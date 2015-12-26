@@ -1,8 +1,39 @@
 body{
 background:#99eeff;
 }
+.centerHorizontal{
+	display:-webkit-flex;
+	display:flex;
+	
+	flex-direction:row;
+	-webkit-flex-direction: row;
+	
+	/* between items in main direction */
+	justify-content:center; /*flex-start, flex-end, center, space-between, space-around, stretch*/
+	-webkit-justify-content:center;
+	
+	/* between rows or columns */
+	align-content:center; /*flex-start, flex-end, center, space-between, space-around, stretch*/
+	-webkit-align-content:center;
+	
+	align-items:center; /*flex-start, flex-end, center, baseline, stretch*/
+	-webkit-align-items:center;
+	
+	justify-content:space-between; /*flex-start, flex-end, center, space-between, space-around*/
+	-webkit-justify-content:space-between;
+	
+}
+
+.flexItem{
+/*order: 1; (2, 3, 4, ... )*/
+flex-grow: 1;  /*2, 3, 4, ...*/
+flex-shrink: 1;  /*2, 3, 4, ...*/
+flex-basis:auto; /* percent, dimension, ... */
+align-self:auto; /*same as but overrides align items above*/
+}
+
 #header{
-width:100vw;border-bottom:1pt solid #ddaa88;
+border-bottom:1pt solid #ddaa88;
 padding:2vh 10vw;
 font-size:18pt;
 }

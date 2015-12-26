@@ -3,6 +3,12 @@
 
 {{authUser.userName}}
 
+<div style='margin:10px;'>
+	user name: <input type='text' can-value='proposedUser.userName' value='tq'>
+	password: <input type='text' can-value='proposedUser.password' value='w'>
+</div>
+
+
 <div style='margin:10px;' >
 Remember Me <input type='checkbox' value='remember' can-click='rememberMe'>
 {{#if wantRemember}}
