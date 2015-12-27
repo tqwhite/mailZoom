@@ -4,9 +4,9 @@ var MailZoom = new MailZoom({
 	define: {
 		authUser: {
 			serialize: false //THIS IS SUPPOSED TO SUPRESS THIS IN THE HASH!!		
-		},
-		emailLists:new can.List()
-	}
+		}
+	},
+	emailLists:new can.List([])
 });
 MailZoom.models = {};
 
@@ -42,4 +42,12 @@ $(function() {
 	MailZoom.attr('page', 'zoom');
 
 });
+
+MailZoom.getByAttribute=function(inList, propertyName, propertyValue){
+	var len=inList.length, inx=0;
+	for (inx=0; inx<len; inx++){
+		if (inList[inx].attr(propertyName)==propertyValue){ return inList[inx];	}
+	}
+	return null;
+}
 

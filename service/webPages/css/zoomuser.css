@@ -23,6 +23,28 @@ background:#99eeff;
 	-webkit-justify-content:space-between;
 	
 }
+.centerVertical{
+	display:-webkit-flex;
+	display:flex;
+	
+	flex-direction:column;
+	-webkit-flex-direction: column;
+	
+	/* between items in main direction */
+	justify-content:center; /*flex-start, flex-end, center, space-between, space-around, stretch*/
+	-webkit-justify-content:center;
+	
+	/* between rows or columns */
+	align-content:flex-start; /*flex-start, flex-end, center, space-between, space-around, stretch*/
+	-webkit-align-content:flex-start;
+	
+	align-items:flex-start; /*flex-start, flex-end, center, baseline, stretch*/
+	-webkit-align-items:flex-start;
+	
+	justify-content:space-between; /*flex-start, flex-end, center, space-between, space-around*/
+	-webkit-justify-content:space-between;
+	
+}
 
 .flexItem{
 /*order: 1; (2, 3, 4, ... )*/
@@ -127,6 +149,25 @@ cursor:pointer;
 
 .editRecipient:hover{
 color:#666;
+}
+
+.selectorListItem{
+	color:#666;
+	position:relative;
+	cursor:pointer;
+}
+.selectorListItem:hover{
+	color:white;
+}
+
+.info{
+	color:#aaa;
+	font-size:70%;
+	cursor:pointer;
+	margin:0px 10px;
+}
+.info:hover{
+	color:white;
 }
 
 

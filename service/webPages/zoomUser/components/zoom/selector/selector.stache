@@ -1,1 +1,20 @@
+<div class='formBox'>
+{{message}}<br/>
 
+{{#emailLists}}
+<div class='centerHorizontal' style='position:relative;justify-content:flex-start;'>
+<div class='selectorListItem' refId='{{refId}}' can-click='editList'>
+{{title}}
+</div>
+<div class='info' can-click='showListInfo' refId='{{refId}}'> 
+{{#infoBoxPresent}}
+close infobox
+{{/infoBoxPresent}}
+{{^infoBoxPresent}}
+info
+{{/infoBoxPresent}}
+</div>
+
+</div>
+{{/emailLists}}
+</div>

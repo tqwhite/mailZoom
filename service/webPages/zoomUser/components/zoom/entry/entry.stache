@@ -1,1 +1,28 @@
+<div class='formBox'>
 
+<div class='centerHorizontal' style='font-size:100%;'>
+	<div>{{message}}</div>
+	<div class='simpleButton' style='font-size:80%;font-weight:normal;' can-click='newList' refId=''>New List</div>
+</div>
+
+<div style='margin-top:2vh;'>
+	Enter List Title/Email<span style='font-size:80%;color:#999;'> (eg, listTitle@mailzoom.com)</span><br/>
+	<input id='listNameInput' type='text' can-value='listHeader.title' can-enter='saveListHeader' style='width:60%;' refId='' listRefId=''><span style='font-size:80%;color:#999;'> (enter to save)</span><br/><br/>
+
+	{{#listStarted}}
+		Enter List Recipient Email Address<br/>
+		<input id='enterListItem' type='text' can-value='currListItem.emailAdr' can-enter='saveItem' style='width:60%;'><span style='font-size:80%;color:#999;'> (enter to save)</span><br/>
+		<input type='hidden' can-value='currListItem.refId'>
+		<input type='hidden' can-value='currListItem.listRefId'>
+	
+		{{#recipientList}}
+			<div can-click='editItem' class='editRecipient' refId='{{refId}}'>{{emailAdr}}<span style='font-size:70%;color:#aaa;'> (click to edit)</span></div>
+		{{/recipientList}}
+	{{/listStarted}}
+</div>
+
+<div class='buttonBox'>
+	<div class='simpleButton' style='font-size:80%;font-weight:normal;' can-click='goToLogin'>Logout</div>
+</div>
+
+</div>
