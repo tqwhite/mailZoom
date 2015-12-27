@@ -3,7 +3,7 @@
 // });
 
 var UserModel = can.Model.extend({
-	findOne: 'POST /login'
+	findOne: 'PUT /login'
 }, {
 	authenticate: function(inData, success, error) {
 		UserModel.findOne(inData, function(user) {
@@ -12,6 +12,29 @@ var UserModel = can.Model.extend({
 		}.bind(this), function() {
 			error();
 		});
+	},
+	
+	register: function(inData, success, error) {
+	
+	
+	
+		$.ajax({
+				method: "POST",
+				url: "/register",
+				headers:{authorization:"<!userId!> <!authToken!>"}
+			})
+			.done(function(data, textStatus, jqXHR) {
+
+success(inData)
+			})
+			.fail(function() {
+error(inData)
+			})
+			.always(function() {
+			console.log("complete registration");
+		});
+	
+
 	}
 });
 

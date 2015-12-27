@@ -4,7 +4,8 @@ var MailZoom = new MailZoom({
 	define: {
 		authUser: {
 			serialize: false //THIS IS SUPPOSED TO SUPRESS THIS IN THE HASH!!		
-		}
+		},
+		emailLists:new can.List()
 	}
 });
 MailZoom.models = {};
@@ -38,7 +39,7 @@ $(function() {
 	// Bind the application state to the root of the application
 	$('body').html(can.view('/zoomUser/core/startup.stache', MailZoom));
 
-	MailZoom.attr('page', 'login');
+	MailZoom.attr('page', 'zoom');
 
 });
 

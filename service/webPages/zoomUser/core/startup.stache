@@ -1,7 +1,7 @@
 <div id='header' class='centerHorizontal'>
 <div>Mail Zoom</div>
 
-<div>{{authUser.fullName}}</div>
+<div>{{authUser.displayName}}</div>
 
 </div>
 

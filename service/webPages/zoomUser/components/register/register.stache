@@ -1,11 +1,19 @@
 
 <div class='formBox'>
-{{message}}
+{{title}}
 
+
+<div style='margin:10px;'>
+	user name: <input type='text' can-value='proposedUser.userName' value='tq'>
+	password: <input type='text' can-value='proposedUser.password' value='w'><br/>
+	
+	display name: <input type='text' can-value='proposedUser.displayName' value='tqwhite'>
+	
+</div>
 
 <div class='buttonBox'>
 	<div class='simpleButton' style='font-size:80%;font-weight:normal;' can-click='goToLogin'>Login Instead</div>
-	<div class='simpleButton' style='padding-right:3vw;padding-left:3vw;' can-click='submitLogin'>Submit</div>
+	<div class='simpleButton' style='padding-right:3vw;padding-left:3vw;' can-click='submitRegistration'>Submit</div>
 </div>
 
 </div>

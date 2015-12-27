@@ -108,6 +108,7 @@ mz-zoom{
 }
 
 .buttonBox{
+	margin-top:2vh;
 	display:-webkit-flex;
 	display:flex;
 	-webkit-justify-content:center;
@@ -117,6 +118,15 @@ mz-zoom{
 	flex-direction:row;
 	-webkit-flex-direction: row;
 
+}
+
+.editRecipient{
+margin:1vh 1vw;
+cursor:pointer;
+}
+
+.editRecipient:hover{
+color:#666;
 }
 
 
