@@ -107,7 +107,7 @@ entry = new entry({
 			for (var i = 0, len = recipientList.length; i < len; i++) {
 				var item = recipientList.attr(i);
 				if (item.attr('refId') == refId) {
-					this.copyRecipient(item, this.currListItem);
+					this.copyRecipient(this.currListItem, item);
 				}
 			}
 
