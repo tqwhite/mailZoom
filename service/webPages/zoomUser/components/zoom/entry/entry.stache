@@ -2,21 +2,21 @@
 
 <div class='centerHorizontal' style='font-size:100%;'>
 	<div>{{message}}</div>
-	<div class='simpleButton' style='font-size:80%;font-weight:normal;' can-click='newList' refId=''>New List</div>
+	<div class='simpleButton' style='font-size:80%;font-weight:normal;' can-click='newList' _id=''>New List</div>
 </div>
 
 <div style='margin-top:2vh;'>
 	Enter List Title/Email<span style='font-size:80%;color:#999;'> (eg, listTitle@mailzoom.com)</span><br/>
-	<input id='listNameInput' type='text' can-value='mailingList.title' can-enter='savemailingList' style='width:60%;' refId='' listRefId=''><span style='font-size:80%;color:#999;'> (enter to save)</span><br/><br/>
+	<input id='listNameInput' type='text' can-value='mailingList.title' can-enter='savemailingList' style='width:60%;' _id='' list_id=''><span style='font-size:80%;color:#999;'> (enter to save)</span><br/><br/>
 
 	{{#listStarted}}
 		Enter List Recipient Email Address<br/>
 		<input id='enterListItem' type='text' can-value='currListItem.emailAdr' can-enter='saveItem' style='width:60%;'><span style='font-size:80%;color:#999;'> (enter to save)</span><br/>
-		<input type='hidden' can-value='currListItem.refId'>
-		<input type='hidden' can-value='currListItem.listRefId'>
+		<input type='hidden' can-value='currListItem._id'>
+		<input type='hidden' can-value='currListItem.list_id'>
 	
 		{{#mailingList.recipientList}}
-			<div can-click='editItem' class='editRecipient' refId='{{refId}}'>{{emailAdr}}<span style='font-size:70%;color:#aaa;'> (click to edit)</span></div>
+			<div can-click='editItem' class='editRecipient' _id='{{_id}}'>{{emailAdr}}<span style='font-size:70%;color:#aaa;'> (click to edit)</span></div>
 		{{/recipientList}}
 	{{/mailingList.listStarted}}
 </div>

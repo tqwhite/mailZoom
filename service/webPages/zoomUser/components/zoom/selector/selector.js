@@ -14,8 +14,8 @@ selector = new selector({
 
 	showListInfo: function(ev, el) {
 		var present = this.attr('infoBoxDomObj');
-		var refId = $(el).attr('refId');
-		var listItem = qtools.getByProperty(this.emailLists, 'refId', refId);
+		var _id = $(el).attr('_id');
+		var listItem = qtools.getByProperty(this.emailLists, '_id', _id);
 		if (!present) {
 			this.attr('infoBoxDomObj', $("<div can-click='clearListInfo' class='infoBlock'><b>" + listItem.title +'@mailzoom.com</b><br/><br/><b>'+this.makeAddressList(listItem)+ "</b></div>"));
 			$(el).append(this.infoBoxDomObj);
@@ -28,7 +28,7 @@ selector = new selector({
 
 	editList: function(el, ev) {
 		var handler = MailZoom.editListHandler;
-		handler($(el).attr('refId'));
+		handler($(el).attr('_id'));
 	}
 });
 

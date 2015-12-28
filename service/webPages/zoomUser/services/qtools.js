@@ -497,11 +497,11 @@ multiAjax:function(params){
 			calls:{
 				terms:{
 					ajaxFunction:expressbook.models.terms.getList,
-					argData:{refId:this.District.RefId}
+					argData:{_id:this.District._id}
 				},
 				gradeLevels:{
 					ajaxFunction:expressbook.models.gradeLevels.getList,
-					argData:{refId:this.District.RefId}
+					argData:{_id:this.District._id}
 				}
 			},
 			success:this.callback('receiveSupportData'),
@@ -936,7 +936,7 @@ dumpActivities:function(inObj){
 	var outString='';
 	inObj=inObj?inObj:A_activities;
 	for (var i in A_activities){
-	outString+=A_activities[i].Standard.RefId.substr(0, 4)+' --- '+A_activities[i].Title+' --- '+A_activities[i].RefId+'\r'
+	outString+=A_activities[i].Standard._id.substr(0, 4)+' --- '+A_activities[i].Title+' --- '+A_activities[i]._id+'\r'
 
 }
 console.log('A_activityListString=\r'+outString);
