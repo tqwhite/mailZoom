@@ -7,12 +7,12 @@
 {{title}}
 </div>
 <div class='info' can-click='showListInfo' refId='{{refId}}'> 
-{{#infoBoxPresent}}
+{{#infoBoxDomObj}}
 close infobox
-{{/infoBoxPresent}}
-{{^infoBoxPresent}}
+{{/infoBoxDomObj}}
+{{^infoBoxDomObj}}
 info
-{{/infoBoxPresent}}
+{{/infoBoxDomObj}}
 </div>
 
 </div>
