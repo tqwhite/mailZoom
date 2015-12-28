@@ -161,13 +161,18 @@ color:#666;
 }
 
 .info{
-	color:#aaa;
-	font-size:70%;
+	color:#333;
+	font-size:80%;
 	cursor:pointer;
 	margin:0px 10px;
 }
 .info:hover{
 	color:white;
+}
+
+.infoBlock{
+position:absolute;top:0px;left:20vw;min-width:15vw;min-height:20vh;background:rgba(100,100,100,.4);
+color:white;
 }
 
 

@@ -1,44 +1,87 @@
 var entry = can.Map.extend({});
+var defaultTitle='Time to Zoom';
 entry = new entry({
-	message: 'Time to Zoom',
+	message: defaultTitle,
 	listStarted:false,
 	
 	currListItem: '',
 
-	recipientList: new can.List(),
-	listHeader: new can.Map({
+	mailingList: new can.Map({
 		title: '',
-		refId: qtools.newGuid()
+		refId: qtools.newGuid(),
+			recipientList: new can.List()
 	}),
+//	recipientList: new can.List(),
+	
+	genList:function(title){
+		return new can.Map({
+			title: title,
+			refId: qtools.newGuid(),
+			recipientList: new can.List()
+		})
+	},
+	
+	genRecipient:function(emailAdr){
+		return new can.Map({
+			emailAdr: emailAdr,
+			refId: '',
+			listRefId: this.mailingList.refId
+		});
+	},
+	
+	copyRecipient:function(source, dest){
+	if (!dest){
+		return new can.Map({
+			emailAdr: source.emailAdr,
+			refId: source.refId,
+			listRefId: this.mailingList.refId
+		});
+	}
+	else{
+		dest.attr('emailAdr', source.emailAdr);
+		dest.attr('refId', source.refId);
+		dest.attr('listRefId', source.listRefId);
+		return dest;
+	}
+	},
+	
+	addToGlobalList:function(mailingList){
+	
+		var preExistingList=MailZoom.getByAttribute(MailZoom.emailLists, 'refId', mailingList.refId);
+		if (!preExistingList){
+			MailZoom.emailLists.push(this.mailingList);
+		}
+	},
 
 	newList: function(ev, el) {
 		this.attr('listStarted', false);
-		this.attr('listHeader', new can.Map({
-			title: '',
-			refId: qtools.newGuid()
-		}));
-		this.attr('recipientList', new can.List());
+		
+		var initList=this.genList();
+		this.attr('mailingList', initList);
+	//	this.attr('mailingList').attr('recipientList', new can.List());
+		
+		
 		this.attr('message', "Time to Zoom");
 		$('#listNameInput').focus();
 	},
+	
+	devFlag:true,
 
-	saveListHeader: function(ev, el) {
-		if (/[^A-Za-z0-9\.-_]/.test(this.listHeader.title)){
+	savemailingList: function(ev, el) {
+		if (/[^A-Za-z0-9\.-_]/.test(this.mailingList.title)){
 			this.attr('message', "Title has to be suitable for email. No spaces or weird characters.");
 			return;
 		}
 		
+		this.addToGlobalList(this.mailingList);
+		
 		this.attr('listStarted', true);
-		this.attr('currListItem', new can.Map({
-			emailAdr: 'a@b.c',
-			refId: '',
-			listRefId: this.listHeader.refId
-		}));
+		
+		var initRecipient=this.genRecipient((this.devFlag?'a@b.c':''));
+		this.attr('currListItem', initRecipient);
 		
 		$('#enterListItem').focus();
 		this.attr('message', "Time to Zoom");
-		
-		MailZoom.emailLists.push(this.listHeader);
 
 
 	},
@@ -53,38 +96,40 @@ entry = new entry({
 
 		var refId = this.currListItem.attr('refId');
 		var emailAdr = this.currListItem.attr('emailAdr');
+		var recipientList=this.attr('mailingList').attr('recipientList');
 
-		if (qtools.getByProperty(this.recipientList, 'emailAdr', emailAdr)) {
+		if (qtools.getByProperty(recipientList, 'emailAdr', emailAdr)) {
 			this.attr('message', "That email address is already on the list");
 			return;
 		}
 
 		if (refId) {
-			for (var i = 0, len = this.recipientList.length; i < len; i++) {
-				var item = this.recipientList.attr(i);
+			for (var i = 0, len = recipientList.length; i < len; i++) {
+				var item = recipientList.attr(i);
 				if (item.attr('refId') == refId) {
-					item.attr('emailAdr', this.currListItem.emailAdr);
-					this.recipientList.attr(i, item);
+					this.copyRecipient(item, this.currListItem);
 				}
 			}
 
 		} else {
 			this.currListItem.attr('refId', qtools.newGuid());
-			this.recipientList.push(this.currListItem);
+			recipientList.push(this.currListItem);
 		}
-		this.attr('currListItem', new can.Map({
-			emailAdr: 'b@b.c',
-			refId: '',
-			listRefId: this.listHeader.refId
-		}));
-
+		
+		var initRecipient=this.genRecipient((this.devFlag?'b@b.c':''));
+		this.attr('currListItem', initRecipient);
+		
+		this.attr('message', defaultTitle);
 		$(el).focus();
 	},
 
 	editItem: function(ev, el) {
 		var refId = $(el).attr('refId');
-		var editItem = qtools.getByProperty(this.recipientList, 'refId', refId);
-		this.attr('currListItem', editItem);
+		var recipientList=this.attr('mailingList').attr('recipientList');
+		
+		var editItem = qtools.getByProperty(recipientList, 'refId', refId);
+		
+		this.attr('currListItem', this.copyRecipient(editItem));
 		$(this.editBox).focus();
 	},
 
@@ -93,8 +138,8 @@ entry = new entry({
 	},
 	
 	openExistingList:function(refId){
-		var existingList=MailZoom.getByAttribute(MailZoom.emailLists, 'refId', refId);
-		console.log('existingTitle='+existingList.attr('title'));
+		var preExistingList=MailZoom.getByAttribute(MailZoom.emailLists, 'refId', refId);
+		entry.attr('mailingList', preExistingList);
 	}
 });
 

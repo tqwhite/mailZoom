@@ -7,7 +7,7 @@
 
 <div style='margin-top:2vh;'>
 	Enter List Title/Email<span style='font-size:80%;color:#999;'> (eg, listTitle@mailzoom.com)</span><br/>
-	<input id='listNameInput' type='text' can-value='listHeader.title' can-enter='saveListHeader' style='width:60%;' refId='' listRefId=''><span style='font-size:80%;color:#999;'> (enter to save)</span><br/><br/>
+	<input id='listNameInput' type='text' can-value='mailingList.title' can-enter='savemailingList' style='width:60%;' refId='' listRefId=''><span style='font-size:80%;color:#999;'> (enter to save)</span><br/><br/>
 
 	{{#listStarted}}
 		Enter List Recipient Email Address<br/>
@@ -15,10 +15,10 @@
 		<input type='hidden' can-value='currListItem.refId'>
 		<input type='hidden' can-value='currListItem.listRefId'>
 	
-		{{#recipientList}}
+		{{#mailingList.recipientList}}
 			<div can-click='editItem' class='editRecipient' refId='{{refId}}'>{{emailAdr}}<span style='font-size:70%;color:#aaa;'> (click to edit)</span></div>
 		{{/recipientList}}
-	{{/listStarted}}
+	{{/mailingList.listStarted}}
 </div>
 
 <div class='buttonBox'>
