@@ -12,7 +12,8 @@ can.Component.extend({
 			MailZoom.models.user.register({
 				userName: this.proposedUser.userName,
 				password: this.proposedUser.password,
-				displayName: this.proposedUser.displayName
+				displayName: this.proposedUser.displayName,
+				_id:qtools.newGuid()
 			}, function(user) {
 				this.attr('title', "Thank you, "+this.proposedUser.displayName);
 				can.route.attr('page', 'register');

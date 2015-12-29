@@ -13,31 +13,29 @@ var UserModel = can.Model.extend({
 			error();
 		});
 	},
-	
+
 	register: function(inData, success, error) {
-	
-	
-	
+
 		$.ajax({
 				method: "POST",
 				url: "/register",
-				headers:{authorization:"<!userId!> <!authToken!>"}
+				headers: {
+					authorization: "<!userId!> <!authToken!>"
+				},
+				data: inData
 			})
-			.done(function(data, textStatus, jqXHR) {
-
-success(inData)
+			.done(function(inData, textStatus, jqXHR) {
+				success(inData)
 			})
-			.fail(function() {
-error(inData)
+			.fail(function(inData) {
+				error(inData)
 			})
 			.always(function() {
 			console.log("complete registration");
 		});
-	
 
 	}
 });
 
 MailZoom.models.user = new UserModel();
-
 

@@ -39,7 +39,7 @@ $(function() {
 	// Bind the application state to the root of the application
 	$('body').html(can.view('/zoomUser/core/startup.stache', MailZoom));
 
-	MailZoom.attr('page', 'login');
+	MailZoom.attr('page', 'register');
 
 });
 
