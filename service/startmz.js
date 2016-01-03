@@ -4,9 +4,6 @@ var qtools = require('qtools'),
 	events = require('events'),
 	util = require('util');
 
-var express = require('express');
-var app = express();
-
 //START OF moduleFunction() ============================================================
 
 var moduleFunction = function(args) {
@@ -37,21 +34,9 @@ var moduleFunction = function(args) {
 			});
 		};
 
-	//LOCAL FUNCTIONS ====================================
 
-	var dummyDataSource = function() {
-		return {
-			information: "placeholder"
-		}
-	}
 
-	//METHODS AND PROPERTIES ====================================
-
-	//INITIALIZATION ====================================
-	var status = {
-		transactionCount: 0,
-		otherData: 'hello'
-	};
+	//VALIDATION ====================================
 
 	if (!process.env.mzPort) {
 		console.log("there must be an environment variable: mzPort to set the service port for MailZoom");
@@ -61,95 +46,44 @@ var moduleFunction = function(args) {
 		console.log("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
 		throw ("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
 	}
+	if (!process.env.mzMongoUrl) {
+		console.log("there must be an environment variable: mzMongoUrl, eg, mongodb://localhost:27017/, that points to the correct Mongo instance");
+		throw ("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
+	}
 
-	//SET UP SERVER =======================================================
+	//LOCAL FUNCTIONS ====================================
 
-	var bodyParser = require('body-parser');
-	app.use(bodyParser.urlencoded({ extended: false }))
-	app.use(bodyParser.json())
-
-	app.use(function(req, res, next) {
-		status.transactionCount++;
-		next();
+	var userAccess = require('models/mz-user');
+	userAccess = new userAccess({
+		mzMongoUrl: process.env.mzMongoUrl,
+		databaseName: 'MailZoom'
 	});
 
-	var router = express.Router();
-	app.use('/', router);
-
-	var authenticate = require('authenticate');
-	authenticate = new authenticate({
-		app: app,
-		router: router
+	var listAccess = require('models/mz-mailing-lists');
+	listAccess = new listAccess({
+		mzMongoUrl: process.env.mzMongoUrl,
+		databaseName: 'MailZoom'
 	});
 
-	//START SERVER AUTHENTICATION =======================================================
-
-	//router.use(function(req, res, next) {});
-	//STATIC PAGE DISPATCH =======================================================
-
-	var modulePath = qtools.employerFilePath(module);
-	var staticPageDispatch = require('staticPageDispatch');
-	staticPageDispatch = new staticPageDispatch({
-		router: router,
-		filePathList: [modulePath + '/webPages'],
-		//'default':'a_main.html',
-		systemParameters: {
-			mzBaseUrl: process.env.mzBaseUrl,
-			status: status
-		}
+	var webUser = require('mz-web-user');
+	webUser = new webUser({
+		staticPagesDirectoryPath: qtools.employerFilePath(module) + '/webPages/',
+		mzPort: process.env.mzPort,
+		mzBaseUrl: process.env.mzBaseUrl,
+		userAccess:userAccess,
+		listAccess:listAccess
 	});
+	webUser.startWebListener();
 
-	//START SERVER ROUTING FUNCTION =======================================================
 
-	router.get('', function(req, res, next) {
-		console.log('access from empty path/get');
+	//METHODS AND PROPERTIES ====================================
 
-		res.set({
-			'content-type': 'application/json;charset=ISO-8859-1',
-			messageid: qtools.newGuid(),
-			messagetype: 'RESPONSE',
-			navigationcount: '100',
-			navigationpage: '1',
-			navigationpagesize: '10',
-			responsesource: 'PROVIDER',
-			connection: 'Close'
-		});
-		res.json({
-			status: 'hello from {empty path}/get',
-			body: req.body,
-			query: req.query,
-			data: dummyDataSource('empty path')
-		});
-	});
-	//START SERVER ROUTE GROUP (ping) =======================================================
 
-	router.get('/ping', function(req, res, next) {
-		console.log('/ping/get');
 
-		res.json({
-			status: 'hello from ping/get',
-			body: req.body,
-			query: req.query,
-			data: dummyDataSource('get')
-		});
-	});
+	//INITIALIZATION ====================================
 
-	router.post('/ping', function(req, res, next) {
-		console.log('/ping/post');
 
-		res.json({
-			status: 'hello from ping/post',
-			body: req.body,
-			query: req.query,
-			data: dummyDataSource('post')
-		});
-	});
 
-	//START SERVER =======================================================
-
-	app.listen(process.env.mzPort);
-
-	qtools.message('Magic happens on port ' + process.env.mzPort + ' ');
 
 	return this;
 };
@@ -157,10 +91,12 @@ var moduleFunction = function(args) {
 //END OF moduleFunction() ============================================================
 
 util.inherits(moduleFunction, events.EventEmitter);
-module.exports = new moduleFunction();
+module.exports = moduleFunction;
 
-//test urls
-//curl 'http://localhost:9000/ping' --data 'x=y'
-//curl 'http://localhost:9000/ping'
-//curl 'http://localhost:9000/'
+var tmp = new moduleFunction();
+
+
+
+
+
 

@@ -19,9 +19,9 @@ var UserModel = can.Model.extend({
 		$.ajax({
 				method: "POST",
 				url: "/register",
-				headers: {
-					authorization: "<!userId!> <!authToken!>"
-				},
+// 				headers: {
+// 					authorization: "<!userId!> <!authToken!>"
+// 				},
 				data: inData
 			})
 			.done(function(inData, textStatus, jqXHR) {

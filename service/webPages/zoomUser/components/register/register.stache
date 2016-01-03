@@ -6,7 +6,7 @@
 <div style='margin:10px;'>
 	user name: <input type='text' can-value='proposedUser.userName' value='tq'>
 	password: <input type='text' can-value='proposedUser.password' value='w'><br/>
-	
+	emailAdr: <input type='text' can-value='proposedUser.emailAdr' value='tq@justidding.com'><br/>
 	display name: <input type='text' can-value='proposedUser.displayName' value='tqwhite'>
 	
 </div>
