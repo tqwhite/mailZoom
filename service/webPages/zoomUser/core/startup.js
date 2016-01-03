@@ -12,6 +12,11 @@ MailZoom.models = {};
 
 $(function() {
 
+
+
+
+		
+
 	$('body').on('click', 'a[href="javascript://"]', function(ev) {
 		ev.preventDefault();
 	});
@@ -39,7 +44,23 @@ $(function() {
 	// Bind the application state to the root of the application
 	$('body').html(can.view('/zoomUser/core/startup.stache', MailZoom));
 
-	MailZoom.attr('page', 'register');
+
+			MailZoom.models.user.getCookieUserInfo({}, function(inData) {
+
+				var user=inData.user || {};
+
+				if (user.displayName){
+					MailZoom.attr('page', 'zoom');
+				}
+				else{
+					MailZoom.attr('page', 'register');
+				}
+			}.bind(this), function() {
+				MailZoom.attr('page', 'register');
+			}.bind(this)
+			)
+			
+	
 
 });
 

@@ -46,9 +46,9 @@ var moduleFunction = function(args) {
 		console.log("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
 		throw ("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
 	}
-	if (!process.env.mzMongoUrl) {
-		console.log("there must be an environment variable: mzMongoUrl, eg, mongodb://localhost:27017/, that points to the correct Mongo instance");
-		throw ("there must be an environment variable: mzBaseUrl, eg, demo.mailzoom.net, to choose the correct vhost");
+	if (!process.env.mzPassportSecret) {
+		console.log("there must be an environment variable: mzPassportSecret, eg, 'some crypto phrase', to secure cookies");
+		throw ("there must be an environment variable: mzPassportSecret, eg, 'some crypto phrase', to secure cookies");
 	}
 
 	//LOCAL FUNCTIONS ====================================
@@ -71,7 +71,8 @@ var moduleFunction = function(args) {
 		mzPort: process.env.mzPort,
 		mzBaseUrl: process.env.mzBaseUrl,
 		userAccess:userAccess,
-		listAccess:listAccess
+		listAccess:listAccess,
+		mzPassportSecret:process.env.mzPassportSecret
 	});
 	webUser.startWebListener();
 

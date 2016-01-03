@@ -3,15 +3,48 @@
 // });
 
 var UserModel = can.Model.extend({
-	findOne: 'PUT /login'
 }, {
+	getCookieUserInfo: function(inData, success, error) {
+
+		$.ajax({
+				method: "GET",
+				url: "/getCookieUserInfo",
+				// 				headers: {
+				// 					authorization: "<!userId!> <!authToken!>"
+				// 				},
+				data: {}
+			})
+			.done(function(inData, textStatus, jqXHR) {
+
+				MailZoom.attr('authUser', inData.user);
+				success(inData)
+			})
+			.fail(function(inData) {
+				error(inData)
+			})
+			.always(function() {});
+
+	},
 	authenticate: function(inData, success, error) {
-		UserModel.findOne(inData, function(user) {
-			MailZoom.attr('authUser', user);
-			success(user);
-		}.bind(this), function() {
-			error();
-		});
+
+		$.ajax({
+				method: "PUT",
+				url: "/login",
+				// 				headers: {
+				// 					authorization: "<!userId!> <!authToken!>"
+				// 				},
+				data: inData
+			})
+			.done(function(inData, textStatus, jqXHR) {
+
+				MailZoom.attr('authUser', inData.user);
+				success(inData)
+			})
+			.fail(function(inData) {
+				error(inData)
+			})
+			.always(function() {});
+
 	},
 
 	register: function(inData, success, error) {
@@ -19,9 +52,9 @@ var UserModel = can.Model.extend({
 		$.ajax({
 				method: "POST",
 				url: "/register",
-// 				headers: {
-// 					authorization: "<!userId!> <!authToken!>"
-// 				},
+				// 				headers: {
+				// 					authorization: "<!userId!> <!authToken!>"
+				// 				},
 				data: inData
 			})
 			.done(function(inData, textStatus, jqXHR) {
@@ -30,12 +63,11 @@ var UserModel = can.Model.extend({
 			.fail(function(inData) {
 				error(inData)
 			})
-			.always(function() {
-			console.log("complete registration");
-		});
+			.always(function() {});
 
 	}
 });
 
 MailZoom.models.user = new UserModel();
+
 
