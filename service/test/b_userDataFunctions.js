@@ -21,7 +21,7 @@ var testRecipient = {
 	emailAdr: 'debbie@tqwhite.com'
 };
 
-describe.only("User Data Model", function() {
+describe("User Data Model", function() {
 	after(function() {
 		dataAccess.deleteAllForTest(function(err, result) {
 			if (err) {
@@ -124,43 +124,29 @@ describe.only("User Data Model", function() {
 
 	});
 
-	it ("should add the recipient without an error", function(done) {
+	it ("should add the recipient role without an error", function(done) {
 		assert.doesNotThrow(function() {
-			dataAccess.addRecipient(testRecipient, function(err, result) {
+			dataAccess.addRecipientRole(testRecipient, function(err, result) {
 				err ? done(err) : done();
 			});
 		});
 	});
 
-	it ("should add the recipient again without an error", function(done) {
+	it ("should add the recipient role again without an error", function(done) {
 		assert.doesNotThrow(function() {
-			dataAccess.addRecipient(testRecipient, function(err, result) {
+			dataAccess.addRecipientRole(testRecipient, function(err, result) {
 				err ? done(err) : done();
 			});
 		});
 	});
 
-	it ("should still only have one recipient", function(done) {
+	it ("should still only have one recipient role entry", function(done) {
 		assert.doesNotThrow(function() {
-			dataAccess.countRecipients(testRecipient, function(err, result) {
+			dataAccess.countRecipients({userName:testUserName}, function(err, result) {
 				assert.equal(result, 1);
 				err ? done(err) : done();
 			});
 		});
-	});
-
-	it ("should retrieve the recipient successfully with added recipient role", function(done) {
-
-		dataAccess.getRecipient(testRecipient.emailAdr, function(err, result) {
-			err && done(err);
-			var hasRecipient = qtools.getByProperty(result, 'roles[0].role', 'recipient');
-			if (result && result.emailAdr === testRecipient.emailAdr) {
-				done();
-			} else {
-				done('did not find testRecipient');
-			}
-		});
-
 	});
 });
 

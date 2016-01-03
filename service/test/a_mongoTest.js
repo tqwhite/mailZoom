@@ -3,7 +3,7 @@ var dataAccessPath=_ct.targetPath+'/node_modules/mz-user/';
 
 var MongoClient = require(_ct.targetPath+'node_modules/models/node_modules/mongodb').MongoClient;
 var assert = require('assert');
-var url = 'mongodb://localhost:27017/test';
+var url = process.env.mzMongoUrl+'test';
 
 describe("Mongo and the driver", function() {
 	it ("should connect without error", function(done) {
@@ -20,7 +20,7 @@ describe("Mongo and the driver", function() {
 
 	it ("should also work with mongoose", function(done) {
 
-		var mongoose = require(dataAccessPath+'node_modules/mongoose');
+		var mongoose = require(_ct.targetPath+'node_modules/models/node_modules/mongoose');
 		mongoose.connect(url);
 		var db = mongoose.connection;
 		db.on('error', function() {
