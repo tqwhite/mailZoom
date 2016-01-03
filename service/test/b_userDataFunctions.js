@@ -4,7 +4,7 @@ var qtools = _ct.qtools;
 var dataAccess = require('models/mz-user');
 dataAccess = new dataAccess({
 	mzMongoUrl: process.env.mzMongoUrl,
-	databaseName: 'TestZoom'
+	databaseName: 'MailZoom'
 });
 
 var assert = require('assert');
