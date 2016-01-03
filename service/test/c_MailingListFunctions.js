@@ -43,7 +43,7 @@ describe("Mailing List Data Model", function() {
 		dataAccess.deleteAllForTest(function(err, result) {
 			if (err) {
 				qtools.dump({
-					"err": err
+					"ERR": err
 				});
 			}
 		})

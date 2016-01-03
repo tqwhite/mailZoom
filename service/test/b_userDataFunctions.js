@@ -4,7 +4,7 @@ var qtools = _ct.qtools;
 var dataAccess = require('models/mz-user');
 dataAccess = new dataAccess({
 	mzMongoUrl: process.env.mzMongoUrl,
-	databaseName: 'MailZoom'
+	databaseName: 'TestZoom'
 });
 
 var assert = require('assert');
@@ -26,7 +26,7 @@ describe("User Data Model", function() {
 		dataAccess.deleteAllForTest(function(err, result) {
 			if (err) {
 				qtools.dump({
-					"err": err
+					"ERR": err
 				});
 			}
 		})
