@@ -61,9 +61,25 @@ describe("User Data Model", function() {
 	it ("should register a correct user", function(done) {
 		assert.doesNotThrow(function() {
 			dataAccess.registerUser(testUser, function(err, result) {
-				err?done(err):done();
+				err ? done(err) : done();
 			});
 		});
+	});
+
+	it ("should reject a duplicate userName", function(done) {
+		dataAccess.registerUser(testUser, function(err, result) {
+			!err ? done(err) : done();
+		});
+	});
+
+	it ("should refuse to register new user with previously used emailAdr", function(done) {
+		badData = qtools.clone(testUser);
+		badData.userName='dupeEmail';
+		dataAccess.registerUser(badData, function(err, result) {
+			assert(err);
+			!err ? done('did not detect duplicate email') : done();;
+		});
+
 	});
 
 	it ("should retrieve the user with added user roles", function(done) {
@@ -142,13 +158,16 @@ describe("User Data Model", function() {
 
 	it ("should still only have one recipient role entry", function(done) {
 		assert.doesNotThrow(function() {
-			dataAccess.countRecipients({userName:testUserName}, function(err, result) {
+			dataAccess.countRecipients({
+				userName: testUserName
+			}, function(err, result) {
 				assert.equal(result, 1);
 				err ? done(err) : done();
 			});
 		});
 	});
 });
+
 
 
 
