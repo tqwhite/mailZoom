@@ -8,7 +8,6 @@ entry = new entry({
 
 	mailingList: new can.Map({
 		title: '',
-		_id: qtools.newGuid(),
 			recipientList: new can.List()
 	}),
 //	recipientList: new can.List(),
@@ -16,7 +15,6 @@ entry = new entry({
 	genList:function(title){
 		return new can.Map({
 			title: title,
-			_id: qtools.newGuid(),
 			recipientList: new can.List()
 		})
 	},
@@ -75,6 +73,42 @@ entry = new entry({
 		
 		this.addToGlobalList(this.mailingList);
 		
+
+
+
+
+
+			MailZoom.models.mailingList.save(this.mailingList, function(mailingList) {
+				this.attr('title', "Saved: " + this.mailingList.title);
+			}.bind(this), function(err) {
+
+				var errNo = err.responseText.match(/^(.*?) /);
+				switch (errNo[1]) {
+					case 'E11000':
+						var fieldName = err.responseText.match(/index: ([a-zA-Z]+).*\{.*:(.*?)\}/);
+
+						humanMessage = "Duplicate " + fieldName[1] + " is not allowed. Value " + fieldName[2] + " is already in use";
+
+						break;
+					default:
+						humanMessage = err.responseText;
+						break;
+				}
+
+
+				//	E11000 duplicate key error collection: MailZoom.users index: userName_1 dup key: { : "tq" }
+
+				this.attr('title', "List save rejected by Server: " + humanMessage);
+			}.bind(this)
+			)
+			
+			
+			
+			
+			
+			
+			
+		
 		this.attr('listStarted', true);
 		
 		var initRecipient=this.genRecipient((this.devFlag?'a@b.c':''));
@@ -112,7 +146,7 @@ entry = new entry({
 			}
 
 		} else {
-			this.currListItem.attr('_id', qtools.newGuid());
+			//this.currListItem.attr('_id', qtools.newGuid());
 			recipientList.push(this.currListItem);
 		}
 		

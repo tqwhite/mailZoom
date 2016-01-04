@@ -53,10 +53,10 @@ $(function() {
 					MailZoom.attr('page', 'zoom');
 				}
 				else{
-					MailZoom.attr('page', 'register');
+					MailZoom.attr('page', 'login');
 				}
 			}.bind(this), function() {
-				MailZoom.attr('page', 'register');
+				MailZoom.attr('page', 'login');
 			}.bind(this)
 			)
 			
